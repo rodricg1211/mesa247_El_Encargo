@@ -9,7 +9,11 @@ export default function VistaAnfitrion({ locationId }: { locationId: number }) {
     setCola(res.data);
   };
 
-  useEffect(() => { cargarCola(); }, []);
+  useEffect(() => {
+    cargarCola();
+    const intervalo = setInterval(cargarCola, 8000);
+    return () => clearInterval(intervalo);
+  }, []);
 
   const llamar = async (id: number) => {
     await axios.patch(`http://localhost:8000/queue/${id}/call`);
